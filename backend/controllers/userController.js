@@ -99,6 +99,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             qr_id: user.qr_id,
+            points: user.points,
         });
     } else {
         res.status(404);
@@ -115,7 +116,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
-
+        user.points = req.body.points + user.points || user.points;
         if (req.body.password) {
             user.password = req.body.password;
         }

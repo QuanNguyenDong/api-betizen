@@ -24,7 +24,12 @@ const userSchema = mongoose.Schema(
         qr_id: {
             type: String,
             require: true,
-        }
+        },
+        points: {
+            type: Number,
+            require: true,
+            default: 0,
+        },
     },
     {
         timestamps: true,
