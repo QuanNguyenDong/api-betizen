@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config();
 
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const containerRoutes = require('./routes/containerRoutes')
 
 connectDB();
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/users', userRoutes);
+app.use('/api/containers', containerRoutes);
 
 
 app.listen(port, () => {
