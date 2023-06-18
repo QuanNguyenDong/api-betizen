@@ -53,23 +53,26 @@ const getContainers = asyncHandler(async (req, res) => {
 // @route PUT /api/containers/info
 // @access Private
 const updateContainerInfo = asyncHandler(async (req, res) => {
-    for (let i = 0; i < req.body.containerIds; i++) {
+    let log = [];
+    for (let i = 0; i < req.body.containerIds.length; i++) {
         let container = await Container.findById(req.body.containerIds[i]);
 
         if (container) {
             if (container.current_user != req.body.userId) {
-                container.past_users = container.past_users + container.current_user
+                container.past_users.push(container.current_user);
                 container.current_user = req.body.userId;
 
                 const updatedContainer = await container.save();
-
-                res.json({ status: "updated" });
+                log.push(updatedContainer)
+            }
+            else{
+                log.push("container " + container._id + " already connected to user")
             }
         } else {
-            res.status(404);
-            throw new Error('Container not found');
+            log.push('container ' + container._id + ' not found in system') ;
         }
     }
+    res.json({log})
 });
 
 // @desc Get all containers
