@@ -20,6 +20,7 @@ const authUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
             isAdmin: user.isAdmin,
         })
     } else {
@@ -33,7 +34,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route POST /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, phone, password } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -42,19 +43,14 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('User already exists');
     }
 
-    // create qr code
-    const text = await generateQR({
-        name,
-        email,
-        password,
-    })
-
     const user = await User.create({
         name,
         email,
+        phone,
         password,
         qr_id: await generateQR({
-            name
+            name,
+            email,
         })
     });
 
@@ -69,6 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
             isAdmin: user.isAdmin,
             qr_id: user.qr_id,
         });
@@ -100,6 +97,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
             isAdmin: user.isAdmin,
             qr_id: user.qr_id,
             points: user.points,
@@ -119,6 +117,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.phone = req.body.phone || user.phone;
         user.points = req.body.points + user.points || user.points;
         if (req.body.password) {
             user.password = req.body.password;
@@ -130,6 +129,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
+            phone: updatedUser.phone,
             isAdmin: updatedUser.isAdmin,
         });
     } else {
@@ -188,6 +188,7 @@ const updateUser = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.phone = req.body.phone || user.phone;
         user.isAdmin = Boolean(req.body.isAdmin);
   
         const updatedUser = await user.save();
@@ -196,6 +197,7 @@ const updateUser = asyncHandler(async (req, res) => {
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
+            phone: updatedUser.phone,
             isAdmin: updatedUser.isAdmin,
         });
     } else {
