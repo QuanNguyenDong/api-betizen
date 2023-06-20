@@ -14,30 +14,33 @@ const getPrices = asyncHandler(async (req, res) => {
 })
 
 const createSession = asyncHandler(async (req, res) => {
-    const {email} = req.body;
+    const user = await User.findById(req.user._id);
 
-    const user = await User.findOne({email});
-
-    const session = await stripe.checkout.sessions.create(
-        {
-            mode: "subscription",
-            payment_method_types: ["card"],
-            line_items: [
-                {
-                    price: req.body.priceId,
-                    quantity: 1,
-                },
-            ],
-            success_url: "http://localhost:3000/articles",
-            cancel_url: "http://localhost:3000/article-plans",
-            customer: user.stripeCustomerId,
-        },
-        {
-            apiKey: process.env.STRIPE_SECRET_KEY,
-        }
-    )
-
-    return res.json(session);
+    if (user) {
+        const session = await stripe.checkout.sessions.create(
+            {
+                mode: "subscription",
+                payment_method_types: ["card"],
+                line_items: [
+                    {
+                        price: req.body.priceId,
+                        quantity: 1,
+                    },
+                ],
+                success_url: "http://localhost:3000/",
+                cancel_url: "http://localhost:3000/",
+                customer: user.stripeCustomerId,
+            },
+            {
+                apiKey: process.env.STRIPE_SECRET_KEY,
+            }
+        )
+    
+        return res.json(session);
+    } else {
+        res.status(404);
+        throw new Error('User not found');       
+    }
 })
 
 module.exports = {
