@@ -33,6 +33,10 @@ const userSchema = mongoose.Schema(
             require: true,
             default: 0,
         },
+        stripeCustomerId: {
+            type: String,
+            // require: true,
+        }
     },
     {
         timestamps: true,
