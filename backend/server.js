@@ -1,10 +1,14 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv').config();
+const cors = require("cors");
 
-const connectDB = require('./config/db');
-const userRoutes = require('./routes/userRoutes');
-const containerRoutes = require('./routes/containerRoutes')
+const connectDB = require("./config/db");
+const userRoutes = require("./routes/userRoutes");
+const containerRoutes = require("./routes/containerRoutes");
+const storageRoutes = require("./routes/storageRoutes");
+const activityRoutes = require("./routes/activityRoutes");
+const subscriptionRoutes = require("./routes/subscriptionRoutes");
 
 connectDB();
 
@@ -33,6 +37,11 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes);
 app.use('/api/containers', containerRoutes);
 
+app.use("/api/users", userRoutes);
+app.use("/api/containers", containerRoutes);
+app.use("/api/storage", storageRoutes);
+app.use("/api/activity", activityRoutes);
+app.use("/api/subscriptions", subscriptionRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
