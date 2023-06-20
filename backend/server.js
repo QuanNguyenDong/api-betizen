@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv').config();
@@ -29,17 +29,9 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
-  res.json(
-    { message: 'Hello World!' }
-  );
-})
-
-
-app.use('/api/users', userRoutes);
-app.use('/api/containers', containerRoutes);
-app.use('/api/storage', storageRoutes);
-app.use('/api/activity', activityRoutes);
+app.get("/", (req, res) => {
+  res.json({ message: "Hello World!" });
+});
 
 app.use("/api/users", userRoutes);
 app.use("/api/containers", containerRoutes);
@@ -49,5 +41,5 @@ app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payment-sheet", paymentRoutes);
 
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+  console.log(`App listening on port ${port}`);
+});
