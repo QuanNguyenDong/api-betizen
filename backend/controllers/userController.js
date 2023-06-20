@@ -40,6 +40,10 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, phone, password } = req.body;
 
+    if (email === undefined || password === undefined) {
+        res.status(400);
+    }
+
     const userExists = await User.findOne({ email });
 
     if (userExists) {
