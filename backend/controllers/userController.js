@@ -1,9 +1,8 @@
 const asyncHandler = require('../middleware/asyncHandler');
 const generateToken = require('../utils/generateToken');
-const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const qr = require('qrcode');
 const generateQR = require('../utils/generateQR');
+const stripe = require('../utils/stripe');
 
 // @desc Auth user & get token
 // @route POST /api/users/auth
@@ -43,6 +42,11 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('User already exists');
     }
 
+    const customer = await stripe.customers.create(
+        { email, },
+        { apiKey: process.env.STRIPE_SECRET_KEY, }
+    );
+
     const user = await User.create({
         name,
         email,
@@ -51,7 +55,8 @@ const registerUser = asyncHandler(async (req, res) => {
         qr_id: await generateQR({
             name,
             email,
-        })
+        }),
+        stripeCustomerId: customer.id,
     });
     if (user) {
         generateToken(res, user._id);
