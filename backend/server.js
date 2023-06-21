@@ -9,6 +9,7 @@ const containerRoutes = require("./routes/containerRoutes");
 const storageRoutes = require("./routes/storageRoutes");
 const activityRoutes = require("./routes/activityRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
+const paymentRoutes = require('./routes/paymentRoutes')
 
 connectDB();
 
@@ -36,6 +37,7 @@ app.use("/api/containers", containerRoutes);
 app.use("/api/storage", storageRoutes);
 app.use("/api/activity", activityRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
+app.use("/api/payment-sheet", paymentRoutes);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
