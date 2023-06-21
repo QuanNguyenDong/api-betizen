@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const containerRoutes = require("./routes/containerRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
+const paymentRoutes = require('./routes/paymentRoutes')
 
 connectDB();
 
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/containers", containerRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
+app.use("/api/payment-sheet", paymentRoutes);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

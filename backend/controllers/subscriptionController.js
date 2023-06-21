@@ -2,17 +2,20 @@ const stripe = require('../utils/stripe');
 const asyncHandler = require('../middleware/asyncHandler');
 const User = require('../models/userModel');
 
-// @desc 
-// @route GET /api/subscription/prices
+// @desc Get prices plan (Basic and Standard)
+// @route GET /api/subscriptions/prices
 // @access Private
 const getPrices = asyncHandler(async (req, res) => {
     const prices = await stripe.prices.list({
-        apiKey: process.env.STRIPE_SECRET_KEY,
+        active: true,
     })
 
     return res.json(prices);
 })
 
+// @desc Create Session
+// @route POST /api/session
+// @access Private
 const createSession = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
