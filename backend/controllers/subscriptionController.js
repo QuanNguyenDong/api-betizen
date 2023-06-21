@@ -6,7 +6,7 @@ const User = require('../models/userModel');
 // @route GET /api/subscriptions/prices
 // @access Private
 const getPrices = asyncHandler(async (req, res) => {
-    const prices = await stripe.products.list({
+    const prices = await stripe.prices.list({
         active: true,
     })
 
