@@ -12,6 +12,9 @@ const userSchema = mongoose.Schema(
             required: true,
             unique: true,
         },
+        phone: {
+            type: String,
+        },
         password: {
             type: String,
             required: true,
@@ -24,6 +27,15 @@ const userSchema = mongoose.Schema(
         qr_id: {
             type: String,
             require: true,
+        },
+        points: {
+            type: Number,
+            require: true,
+            default: 0,
+        },
+        stripeCustomerId: {
+            type: String,
+            // require: true,
         }
     },
     {
