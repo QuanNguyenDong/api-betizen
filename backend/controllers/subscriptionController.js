@@ -6,11 +6,19 @@ const User = require('../models/userModel');
 // @route GET /api/subscriptions/prices
 // @access Private
 const getPrices = asyncHandler(async (req, res) => {
-    const prices = await stripe.prices.list({
+    const prices = await stripe.products.list({
         active: true,
     })
 
-    return res.json(prices);
+    const products = await Promise.all(prices.data.map(async (price) => {
+        const prc = await stripe.prices.retrieve(price["default_price"])
+        return {
+            ...price,
+            unit_amount: prc["unit_amount"],
+        }
+    }))
+
+    return res.json(products);
 })
 
 // @desc Create Session
