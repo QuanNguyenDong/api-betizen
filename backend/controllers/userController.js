@@ -54,11 +54,14 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         qr_id: await generateQR({
-            name,
-            email,
-            password,
+            name
         })
     });
+
+    let uid = user._id;
+    user.qr_id = await generateQR({uid});
+    user.save();
+
     if (user) {
         generateToken(res, user._id);
 

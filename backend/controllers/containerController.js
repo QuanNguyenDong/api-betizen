@@ -5,10 +5,11 @@ const Container = require("../models/containerModel");
 // @route POST /api/containers
 // @access Admin
 const registerContainer = asyncHandler(async (req, res) => {
-    const container = await Container.create({});
+    let type = req.body.type;
+    const container = await Container.create({type});
     if (container) {
         res.status(201).json({
-            _id: container._id,
+            _id: container._id
         });
     } else {
         res.status(400);
@@ -23,12 +24,7 @@ const getContainer = asyncHandler(async (req, res) => {
     const container = await Container.findById(req.body._id);
 
     if (container) {
-        res.json({
-            _id: container._id,
-            current_user: container.current_user,
-            past_users: container.past_users,
-
-        });
+        res.json({ container });
     } else {
         res.status(404);
         throw new Error('Container not found');
@@ -65,14 +61,14 @@ const updateContainerInfo = asyncHandler(async (req, res) => {
                 const updatedContainer = await container.save();
                 log.push(updatedContainer)
             }
-            else{
+            else {
                 log.push("container " + container._id + " already connected to user")
             }
         } else {
-            log.push('container ' + container._id + ' not found in system') ;
+            log.push('container ' + container._id + ' not found in system');
         }
     }
-    res.json({log})
+    res.json({ log })
 });
 
 // @desc Get all containers
