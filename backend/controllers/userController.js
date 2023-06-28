@@ -58,6 +58,11 @@ const registerUser = asyncHandler(async (req, res) => {
         }),
         stripeCustomerId: customer.id,
     });
+
+    let uid = user._id;
+    user.qr_id = await generateQR({uid});
+    user.save();
+
     if (user) {
         generateToken(res, user._id);
 

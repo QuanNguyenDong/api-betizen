@@ -11,6 +11,11 @@ const containerSchema = mongoose.Schema(
         past_users: {
             type: Array
         },
+        type:{
+            type: String,
+            require: true,
+            default: "1L"
+        }
     },
     {
         timestamps: true,
