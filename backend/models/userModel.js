@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const userSchema = mongoose.Schema(
     {
@@ -11,6 +11,9 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true,
             unique: true,
+        },
+        phone: {
+            type: String,
         },
         password: {
             type: String,
@@ -30,6 +33,10 @@ const userSchema = mongoose.Schema(
             require: true,
             default: 0,
         },
+        stripeCustomerId: {
+            type: String,
+            // require: true,
+        }
     },
     {
         timestamps: true,
