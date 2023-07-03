@@ -23,6 +23,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.2",
+    "node-schedule": "^2.1.1",
     "qrcode": "^1.5.3",
     "stripe": "^12.9.0"
   }
