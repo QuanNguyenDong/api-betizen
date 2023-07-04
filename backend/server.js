@@ -14,6 +14,8 @@ const schedule = require('node-schedule');
 
 const Activity = require("./models/activityModel");
 
+const OneSignal = require('@onesignal/node-onesignal');
+
 connectDB();
 
 const app = express();
@@ -46,6 +48,21 @@ app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
 
+const app_key_provider = {
+     getToken() {
+         return "YjQ0MzMxNGQtYzM2ZS00NjQ4LTkzN2EtNDM0NGI2OTAxMDY5";
+     }
+ };
+
+ const configuration = OneSignal.createConfiguration({
+    authMethods: {
+        app_key: {
+            tokenProvider: app_key_provider
+        }
+    }
+});
+const client = new OneSignal.DefaultApi(configuration);
+
 const rule = new schedule.RecurrenceRule();
 let time = new Date();
 time.setSeconds(time.getSeconds() + 3);
@@ -63,10 +80,27 @@ const job = schedule.scheduleJob(rule, async function () {
     b.setMonth(a.getMonth() + 1)
     a.setDate(a.getDate() + 14)
 
+
+    const notification = new OneSignal.Notification();
+      notification.app_id = "163981d3-1de2-47aa-b5ce-51271b045927";
+      //notification.included_segments = ['Subscribed Users'];
+      notification.include_external_user_ids = [activities[i].user_to];
+      //notification.include_player_ids = ["96d2ce83-ce8d-456a-a03d-27b10846756b"]; //rey emu
+
+      
     if (curTime.getTime() >= b.getTime()) {
-      console.log("fine is due");
+      notification.contents = {
+        en: "You have been fined for an overdue container."
+      };
+      const {id} = await client.createNotification(notification);
     } else if (curTime.getTime() >= a.getTime()) {
-      console.log("2 week reminder");
+      notification.contents = {
+        en: "You have 2 weeks to return a container or you will be fined."
+      };
+      const {id} = await client.createNotification(notification);
     }
   }
+
+  let c = await client.getPlayers("163981d3-1de2-47aa-b5ce-51271b045927");
+  console.log(c)
 });
