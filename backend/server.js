@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv').config();
+const path = require('path');
+
 
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
@@ -20,15 +22,16 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.enable("trust proxy")
 app.use(
   cors({
-    origin: ["http://localhost:5000"],
-    credentials: true,
-    exposedHeaders: ["jwt"],
+    // origin: "http://localhost:3001",
+    // credentials: true,
+    // exposedHeaders: ["jwt"],
   })
 );
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.json({ message: "Hello World!" });
 });
 
@@ -38,6 +41,23 @@ app.use("/api/storage", storageRoutes);
 app.use("/api/activity", activityRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payment-sheet", paymentRoutes);
+
+// business portal
+if (true) {
+  app.use(express.static(path.join(__dirname, '../business-portal/build')));
+
+  app.get("/business", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
+    )
+  })
+
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
+    )
+  })
+}
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
