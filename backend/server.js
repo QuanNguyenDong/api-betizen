@@ -43,7 +43,7 @@ app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payment-sheet", paymentRoutes);
 
 // business portal
-if (true) {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../business-portal/build')));
 
   app.get("/business", (req, res) => {
