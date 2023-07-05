@@ -44,17 +44,17 @@ app.use("/api/payment-sheet", paymentRoutes);
 
 // business portal
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../qr-scanner/build')));
+  app.use(express.static(path.join(__dirname, '../business-portal/build')));
 
   app.get("/business", (req, res) => {
     res.sendFile(
-      path.resolve(__dirname, '../', 'qr-scanner', 'build', 'index.html')
+      path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
     )
   })
 
   app.get("*", (req, res) => {
     res.sendFile(
-      path.resolve(__dirname, '../', 'qr-scanner', 'build', 'index.html')
+      path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
     )
   })
 }
