@@ -24,7 +24,8 @@ const authUser = asyncHandler(async (req, res) => {
             qr_id: user.qr_id,
             points: user.points,
             pushNotification: user.pushNotification,
-            containerReturned: updatedUser.containerReturned,
+            containerReturned: user.containerReturned,
+            accountType: user.accountType,
         })
     } else {
         res.status(401);
@@ -79,7 +80,8 @@ const registerUser = asyncHandler(async (req, res) => {
             qr_id: user.qr_id,
             points: user.points,
             pushNotification: user.pushNotification,
-            containerReturned: updatedUser.containerReturned,
+            containerReturned: user.containerReturned,
+            accountType: user.accountType,
         });
     } else {
         res.status(400);
@@ -114,7 +116,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
             qr_id: user.qr_id,
             points: user.points,
             pushNotification: user.pushNotification,
-            containerReturned: updatedUser.containerReturned,
+            containerReturned: user.containerReturned,
+            accountType: user.accountType,
         });
     } else {
         res.status(404);
@@ -150,6 +153,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             points: updatedUser.points,
             pushNotification: updatedUser.pushNotification,
             containerReturned: updatedUser.containerReturned,
+            accountType: updatedUser.accountType,
         });
     } else {
         res.status(404);
@@ -202,9 +206,7 @@ const getUserById = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/:id
 // @access  Private
 const updateUser = asyncHandler(async (req, res) => {
-    console.log(req.params)
     const user = await User.findById(req.params.id);
-    console.log(req.params)
   
     if (user) {
         user.name = req.body.name || user.name;
@@ -229,6 +231,7 @@ const updateUser = asyncHandler(async (req, res) => {
             points: updatedUser.points,
             pushNotification: updatedUser.pushNotification,
             containerReturned: updatedUser.containerReturned,
+            accountType: updatedUser.accountType,
         });
     } else {
         res.status(404);
