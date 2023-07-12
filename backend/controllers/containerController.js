@@ -33,9 +33,9 @@ const getContainer = asyncHandler(async (req, res) => {
 
 // @desc Get all containers currently connected to the user
 // @route GET /api/containers/:uid
-// @access Private/Admin
+// @access Private
 const getContainers = asyncHandler(async (req, res) => {
-    const containers = await Container.find({ current_user: req.user._id });
+    const containers = await Container.find({ current_user: req.params.uid });
 
     if (containers) {
         res.json({ containers });

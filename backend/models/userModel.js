@@ -36,6 +36,21 @@ const userSchema = mongoose.Schema(
         stripeCustomerId: {
             type: String,
             // require: true,
+        },
+        pushNotification: {
+            type: Boolean,
+            require: true,
+            default: true,
+        },
+        accountType: {
+            type: String,
+            require: true,
+            default: "Customer",
+        },
+        containerReturned: {
+            type: Number,
+            require: true,
+            default: 0,
         }
     },
     {

@@ -21,6 +21,11 @@ const authUser = asyncHandler(async (req, res) => {
             email: user.email,
             phone: user.phone,
             isAdmin: user.isAdmin,
+            qr_id: user.qr_id,
+            points: user.points,
+            pushNotification: user.pushNotification,
+            containerReturned: user.containerReturned,
+            accountType: user.accountType,
         })
     } else {
         res.status(401);
@@ -73,6 +78,10 @@ const registerUser = asyncHandler(async (req, res) => {
             phone: user.phone,
             isAdmin: user.isAdmin,
             qr_id: user.qr_id,
+            points: user.points,
+            pushNotification: user.pushNotification,
+            containerReturned: user.containerReturned,
+            accountType: user.accountType,
         });
     } else {
         res.status(400);
@@ -106,6 +115,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
             isAdmin: user.isAdmin,
             qr_id: user.qr_id,
             points: user.points,
+            pushNotification: user.pushNotification,
+            containerReturned: user.containerReturned,
+            accountType: user.accountType,
         });
     } else {
         res.status(404);
@@ -124,6 +136,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.email = req.body.email || user.email;
         user.phone = req.body.phone || user.phone;
         user.points = req.body.points + user.points || user.points;
+        if(req.body.pushNotification !== undefined){user.pushNotification = req.body.pushNotification;}
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -136,6 +149,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             phone: updatedUser.phone,
             isAdmin: updatedUser.isAdmin,
+            qr_id: user.qr_id,
+            points: updatedUser.points,
+            pushNotification: updatedUser.pushNotification,
+            containerReturned: updatedUser.containerReturned,
+            accountType: updatedUser.accountType,
         });
     } else {
         res.status(404);
@@ -186,7 +204,7 @@ const getUserById = asyncHandler(async (req, res) => {
 
 // @desc    Update user
 // @route   PUT /api/users/:id
-// @access  Private/Admin
+// @access  Private
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
   
@@ -195,6 +213,11 @@ const updateUser = asyncHandler(async (req, res) => {
         user.email = req.body.email || user.email;
         user.phone = req.body.phone || user.phone;
         user.isAdmin = Boolean(req.body.isAdmin);
+        user.points = req.body.points + user.points || user.points;
+        if(req.body.pushNotification !== undefined){user.pushNotification = req.body.pushNotification;}
+        if (req.body.password) {
+            user.password = req.body.password;
+        }
   
         const updatedUser = await user.save();
   
@@ -204,6 +227,11 @@ const updateUser = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             phone: updatedUser.phone,
             isAdmin: updatedUser.isAdmin,
+            qr_id: user.qr_id,
+            points: updatedUser.points,
+            pushNotification: updatedUser.pushNotification,
+            containerReturned: updatedUser.containerReturned,
+            accountType: updatedUser.accountType,
         });
     } else {
         res.status(404);

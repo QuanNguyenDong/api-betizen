@@ -9,7 +9,7 @@ const registerActivity = asyncHandler(async (req, res) => {
     let user_to = req.body.user_to;
     let containers = [];
     for (let i = 0; i < req.body.containerids.length; i++) {
-        containers.push({cid:req.body.containerids[i], returned:false});
+        containers.push({ cid: req.body.containerids[i], returned: false });
     }
     const activity = await Activity.create({ user_from, user_to, containers });
     if (activity) {
@@ -83,6 +83,42 @@ const updateActivityInfo = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc activity container returned
+// @route PUT /api/activity/container
+// @access Private
+//TODO
+const updateActivityContainer = asyncHandler(async (req, res) => {
+    let containers = req.body.containerids;
+    let log = [];
+    for (let i = 0; i < containers.length; i++) {
+        let cid = containers[i]
+        const activity = await Activity.findOne({ "containers.cid": cid }).sort({ createdAt: -1 });
+
+        if (activity) {
+            let k = 0;
+            for (let j = 0; j < activity.containers.length; j++) {
+                if (activity.containers[j].cid === cid) {
+                    activity.containers[j].returned = true;
+                }
+                if (activity.containers[j].returned === true) {
+                    k++;
+                }
+                if (k ===  activity.containers.length){
+                    activity.finished = true;
+                }
+            }
+
+            const updatedActivity = await activity.save();
+
+            log.push(activity._id);
+        } else {
+            log.push('Activity not found');
+        }
+
+    }
+    res.json({ log })
+});
+
 // @desc Get all activities
 // @route GET /api/activitiy
 // @access Admin
@@ -112,6 +148,7 @@ module.exports = {
     getActivitiesFrom,
     getActivitiesTo,
     updateActivityInfo,
+    updateActivityContainer,
     getAllActivities,
     deleteActivity
 }

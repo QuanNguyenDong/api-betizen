@@ -24,6 +24,7 @@
     "supertest": "^6.3.3"
   },
   "dependencies": {
+    "@onesignal/node-onesignal": "^2.0.0-beta1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -32,6 +33,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.2",
+    "node-schedule": "^2.1.1",
     "qrcode": "^1.5.3",
     "stripe": "^12.9.0"
   }

@@ -14,6 +14,11 @@ const activitySchema = mongoose.Schema(
         containers: {
             type: [{ _id:false, cid: { type: String }, returned: { type: Boolean } }],
             required: true,
+        },
+        finished:{
+            type:Boolean,
+            required: true,
+            default: false,
         }
     },
     {
