@@ -20,8 +20,8 @@ services:
     # environment:
     #   - MONGO_INITDB_ROOT_USERNAME=quan
     #   - MONGO_INITDB_ROOT_PASSWORD=mypassword
-    # ports:
-    #   - "27017:27017"
+    ports:
+      - "27017:27017"
     volumes:
       - mongo-db:/data/db
 

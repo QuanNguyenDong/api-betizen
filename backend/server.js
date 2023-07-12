@@ -5,7 +5,6 @@ const dotenv = require('dotenv').config();
 const path = require('path');
 
 
-const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const containerRoutes = require("./routes/containerRoutes");
 const storageRoutes = require("./routes/storageRoutes");
@@ -13,10 +12,8 @@ const activityRoutes = require("./routes/activityRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const paymentRoutes = require('./routes/paymentRoutes')
 
-connectDB();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Body parser middleware
 app.use(express.json());
@@ -59,6 +56,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+module.exports = {app};
+
+
