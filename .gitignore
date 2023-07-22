@@ -2,3 +2,6 @@ node_modules
 .env
 docker-compose.dev.yml
 script.sh
+.DS_Store
+coverage
+.vscode

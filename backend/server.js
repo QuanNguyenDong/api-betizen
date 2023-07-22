@@ -11,13 +11,13 @@ const activityRoutes = require("./routes/activityRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const paymentRoutes = require('./routes/paymentRoutes');
 const mapRoutes = require('./routes/mapDataRoutes');
-const schedule = require('node-schedule');
+// const schedule = require('node-schedule');
 
-const Activity = require("./models/activityModel");
-const User = require('./models/userModel');
+// const Activity = require("./models/activityModel");
+// const User = require('./models/userModel');
 
-const OneSignal = require('@onesignal/node-onesignal');
-const Stripe = require('stripe');
+// const OneSignal = require('@onesignal/node-onesignal');
+// const Stripe = require('stripe');
 
 const app = express();
 
@@ -25,7 +25,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.enable("trust proxy")
+// app.enable("trust proxy")
 app.use(
   cors({
     // origin: "http://localhost:3001",
@@ -44,39 +44,39 @@ app.use("/api/storage", storageRoutes);
 app.use("/api/activity", activityRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payment-sheet", paymentRoutes);
-
-// business portal
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../business-portal/build')));
-
-  app.get("/business", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
-    )
-  })
-
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
-    )
-  })
-}
-
 app.use("/api/map-data", mapRoutes);
 
-const app_key_provider = {
-  getToken() {
-    return "YjQ0MzMxNGQtYzM2ZS00NjQ4LTkzN2EtNDM0NGI2OTAxMDY5";
-  }
-};
+// business portal
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../business-portal/build')));
 
-const configuration = OneSignal.createConfiguration({
-  authMethods: {
-    app_key: {
-      tokenProvider: app_key_provider
-    }
-  }
-});
+//   app.get("/business", (req, res) => {
+//     res.sendFile(
+//       path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
+//     )
+//   })
+
+//   app.get("*", (req, res) => {
+//     res.sendFile(
+//       path.resolve(__dirname, '../', 'business-portal', 'build', 'index.html')
+//     )
+//   })
+// }
+
+
+// const app_key_provider = {
+//   getToken() {
+//     return "YjQ0MzMxNGQtYzM2ZS00NjQ4LTkzN2EtNDM0NGI2OTAxMDY5";
+//   }
+// };
+
+// const configuration = OneSignal.createConfiguration({
+//   authMethods: {
+//     app_key: {
+//       tokenProvider: app_key_provider
+//     }
+//   }
+// });
 
 // const client = new OneSignal.DefaultApi(configuration);
 

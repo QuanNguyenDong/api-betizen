@@ -27,10 +27,11 @@ global.signin = async () => {
 let mongo;
 
 beforeAll(async () => {
-    // process.env.JWT_KEY = "123";
+    process.env.JWT_SECRET = "123";
     mongo = await MongoMemoryServer.create();
     const mongoUri = await mongo.getUri();
 
+    mongoose.set('strictQuery', true); 
     await mongoose.connect(mongoUri, {});
 });
 
