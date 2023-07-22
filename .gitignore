@@ -2,4 +2,6 @@ node_modules
 .env
 docker-compose.dev.yml
 script.sh
-qr-scanner
+.DS_Store
+coverage
+.vscode

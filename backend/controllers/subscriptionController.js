@@ -6,7 +6,7 @@ const User = require('../models/userModel');
 // @route GET /api/subscriptions/prices
 // @access Private
 const getPrices = asyncHandler(async (req, res) => {
-    const prices = await stripe.products.list({
+    const prices = await stripe.prices.list({
         active: true,
     })
 
@@ -38,8 +38,8 @@ const createSession = asyncHandler(async (req, res) => {
                         quantity: 1,
                     },
                 ],
-                success_url: "http://localhost:3000/",
-                cancel_url: "http://localhost:3000/",
+                // success_url: "http://localhost:3000/",
+                // cancel_url: "http://localhost:3000/",
                 customer: user.stripeCustomerId,
             },
             {

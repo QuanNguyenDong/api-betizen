@@ -5,6 +5,7 @@ const {
     getActivitiesFrom,
     getActivitiesTo,
     updateActivityInfo,
+    updateActivityContainer,
     getAllActivities,
     deleteActivity
 } = require('../controllers/activityController');
@@ -16,7 +17,8 @@ router.route('/').post(protect, registerActivity).get(protect, admin, getAllActi
 router.route('/info').put(protect, updateActivityInfo);
 router.route('/from').get(protect, getActivitiesFrom);
 router.route('/to').get(protect, getActivitiesTo);
-router.route('/:aid').get(protect, getActivity).delete(protect, admin, deleteActivity);;
+router.route('/container').put(protect, updateActivityContainer);
+router.route('/:aid').get(protect, getActivity).delete(protect, admin, deleteActivity);
 
 module.exports = router;
 
