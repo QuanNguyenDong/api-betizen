@@ -11,7 +11,7 @@ Short description or introduction to the project.
 -   [Usage](#usage)
 -   [API Documentation](#api-documentation)
 -   [Testing](#testing)
--   [Contributing](#contributing)
+-   [Contribution acknowledgement](#contribution-acknowledgement)
 -   [License](#license)
 
 ## Project Description
@@ -61,7 +61,14 @@ These are the steps required to install and set up your project locally. Include
 5. Start the application: `npm run server`
 
 ### Docker
-Refer to Dockerfile, docker-compose.*.yml for docker configuration (potentially for deployment). Refer to script.sh for command to build image and run container (assume developer already has Docker engine in laptop)
+Refer to Dockerfile, docker-compose.*.yml for docker configuration (potentially for deployment). Assume developer already has Docker engine, to build image and run/stop container:
+```
+# stop container
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
+
+# run container
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
 
 
 ## Usage
@@ -74,18 +81,14 @@ Explain how to use your API. Provide examples of API endpoints, request/response
 4. Provide code examples or sample requests to demonstrate how to interact with your API. -->
 
 ### Postman
-<video controls width="100%" muted>
-  <source src="./recordings/Postman24Jul.mp4" type="video/mp4">
-</video>
+https://github.com/QuanNguyenDong/api-betizen/assets/79500388/4b16933e-d76f-4d75-aece-2dfac9b3af8b
 
 ### http in vs code
-<video controls width="100%" muted>
-  <source src="./recordings/httpVsCode.mp4" type="video/mp4">
-</video>
+https://github.com/QuanNguyenDong/api-betizen/assets/79500388/822aba19-73a2-49cc-889c-71a8ab819e00
 
 ## API Documentation
 ### User
-```python
+```
 @desc Register a new user
 @route POST /api/users
 @access Public
@@ -124,7 +127,7 @@ Explain how to use your API. Provide examples of API endpoints, request/response
 ```
 
 ### Container
-```python
+```
 @desc Generate a new container
 @route POST /api/containers
 @access Admin
@@ -151,7 +154,7 @@ Explain how to use your API. Provide examples of API endpoints, request/response
 ```
 
 ### Activity
-```python
+```
 @desc Create a new activity
 @route POST /api/activity
 @access Private
@@ -186,6 +189,9 @@ Explain how to use your API. Provide examples of API endpoints, request/response
 ```
 
 Refer to __requests-http__ directory or source code (controllers folder) for more details included in the body
+
+## Project Structure
+continue...
 
 ## Testing
 Testing is implemented using Jest and Supertest library. To run the testcase:
