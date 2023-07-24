@@ -74,14 +74,10 @@ Explain how to use your API. Provide examples of API endpoints, request/response
 4. Provide code examples or sample requests to demonstrate how to interact with your API. -->
 
 ### Postman
-<video controls width="100%" muted>
-  <source src="./recordings/Postman24Jul.mp4" type="video/mp4">
-</video>
+https://github.com/QuanNguyenDong/api-betizen/assets/79500388/4b16933e-d76f-4d75-aece-2dfac9b3af8b
 
 ### http in vs code
-<video controls width="100%" muted>
-  <source src="./recordings/httpVsCode.mp4" type="video/mp4">
-</video>
+https://github.com/QuanNguyenDong/api-betizen/assets/79500388/822aba19-73a2-49cc-889c-71a8ab819e00
 
 ## API Documentation
 ### User
