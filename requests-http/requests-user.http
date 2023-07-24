@@ -1,0 +1,86 @@
+
+GET http://localhost:3000/api
+Content-Type: application/json
+###
+
+# @desc Register a new user
+# @route POST /api/users
+# @access Public
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "name" : "Test",
+    "email" : "test@test.com",
+    "password" : "123"
+}
+###
+
+# @desc Sign in user & get token
+# @route POST /api/users/auth
+# @access Public
+POST http://localhost:3000/api/users/auth
+Content-Type: application/json
+
+{
+    "email" : "test@test.com",
+    "password" : "123"
+}
+###
+
+# @desc Sign out user & clear cookie
+# @route POST /api/users/logout
+# @access Public
+POST http://localhost:3000/api/users/logout
+Content-Type: application/json
+###
+
+# @desc Get user profile
+# @route POST /api/users/profile
+# @access Private
+GET http://localhost:3000/api/users/profile
+Content-Type: application/json
+###
+
+# @desc Update user profile
+# @route PUT /api/users/profile
+# @access Private
+PUT http://localhost:3000/api/users/profile
+Content-Type: application/json
+
+{
+    "name" : "John Doe"
+}
+###
+
+# @desc Get all users
+# @route GET /api/users
+# @access Private/Admin
+GET http://localhost:3000/api/users/
+Content-Type: application/json
+###
+
+# @desc Delete user
+# @route DELETE /api/users/:id
+# access Private/Admin
+DELETE http://localhost:3000/api/users/:id
+Content-Type: application/json
+###
+
+# @desc Get user by ID
+# @route GET /api/users/:id
+# @access Private/Admin
+GET http://localhost:3000/api/users/:id
+Content-Type: application/json
+###
+
+# @desc    Update user
+# @route   PUT /api/users/:id
+# @access  Private/Admin
+PUT http://localhost:3000/api/users/:id
+Content-Type: application/json
+
+{
+    "name" : "John Doe"
+}
+###
