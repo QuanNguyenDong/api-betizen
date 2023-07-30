@@ -1,7 +1,5 @@
 # RESTful API for app development (Backend)
 
-Short description or introduction to the project.
-
 ## Table of Contents
 
 -   [Project Description](#project-description)
@@ -16,7 +14,6 @@ Short description or introduction to the project.
 
 ## Project Description
 
-Provide a detailed description of your RESTful API project. Explain its purpose, functionality, and any relevant background information.
 
 ## Features
 
@@ -188,10 +185,23 @@ https://github.com/QuanNguyenDong/api-betizen/assets/79500388/822aba19-73a2-49cc
 @access Admin
 ```
 
-Refer to __requests-http__ directory or source code (controllers folder) for more details included in the body
+### Storage
+```
+@desc Register a new storage
+@route POST /api/storage
+@access Admin
 
-## Project Structure
-continue...
+@desc Get storage information
+@route GET /api/storage/:storageId
+@access Private
+
+@desc Update storage info
+@route PUT /api/storage/info
+@access Private
+```
+
+
+Refer to __requests-http__ directory or source code (controllers folder) for more details included in the body
 
 ## Testing
 Testing is implemented using Jest and Supertest library. To run the testcase:

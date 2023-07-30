@@ -1,0 +1,63 @@
+@container_id=64b8b9fb54ac37d0991ef826
+@user_id=64b773e99ba31d6830972e2c
+@container_id_list=["64b8b207cb962a6cba43977a","64b8b20ccb962a6cba43977d","64b8b20dcb962a6cba439780"]
+
+# @desc Generate a new container
+# @route POST /api/containers
+# @access Admin
+POST http://localhost:3000/api/containers
+Content-Type: application/json
+###
+
+
+# @desc Get container information
+# @route GET /api/containers/info
+# @access Private/Admin
+GET http://localhost:3000/api/containers/info
+Content-Type: application/json
+
+{
+    "_id" : "{{container_id}}"
+}
+###
+
+
+# @desc Get all containers currently connected to the user
+# @route GET /api/containers/:uid
+# @access Private
+GET http://localhost:3000/api/containers/{{user_id}}
+Content-Type: application/json
+###
+
+
+# @desc Update container info
+# @route PUT /api/containers/info
+# @access Private
+PUT http://localhost:3000/api/containers/info
+Content-Type: application/json
+
+{
+    "userId" : "{{user_id}}",
+    "containerIds" : {{container_id_list}}
+}
+###
+
+
+# @desc Get all containers
+# @route GET /api/containers
+# @access Admin
+GET http://localhost:3000/api/containers
+Content-Type: application/json
+###
+
+
+# @desc Delete container
+# @route DELETE /api/containers
+# access Admin
+DELETE http://localhost:3000/api/containers/{{container_id}}
+Content-Type: application/json
+
+{
+    "_id" : "{{container_id}}"
+}
+###
